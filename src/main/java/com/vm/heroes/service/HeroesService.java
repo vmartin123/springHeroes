@@ -40,10 +40,15 @@ public class HeroesService {
     }
 
     public Hero createHero(Hero hero) {
-        int id = getHeroesList().get(getHeroesList().size()-1).getId() + 1;
-        hero.setId(id);
-
-        getHeroesList().add(hero);
+    	if (getHeroesList().size() > 0) {
+    		int id = getHeroesList().get(getHeroesList().size()-1).getId() + 1;
+            hero.setId(id);
+            getHeroesList().add(hero);
+		} else {
+			hero.setId(1);
+	        getHeroesList().add(hero);
+		}
+        
         return hero;
     }
 
