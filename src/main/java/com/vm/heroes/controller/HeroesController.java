@@ -13,49 +13,49 @@ import java.util.List;
 @Data
 public class HeroesController {
 
-    HeroesService heroesService;
+	HeroesService heroesService;
 
-    @Autowired
-    public HeroesController(HeroesService heroesService) {
-        this.heroesService = heroesService;
-    }
+	@Autowired
+	public HeroesController(HeroesService heroesService) {
+		this.heroesService = heroesService;
+	}
 
-    @GetMapping("/heroes")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Hero> getHeroes(@RequestParam(value="name", required=false) String name) {
-        if (name == null) {
-            return heroesService.getHeroesList();
-        } else {
-            return heroesService.getHeroesFilteredByName(name);
-        }
-    }
+	@GetMapping("/heroes")
+	@ResponseStatus(HttpStatus.OK)
+	public List<Hero> getHeroes(@RequestParam(value = "name", required = false) String name) {
+		if (name == null) {
+			return heroesService.getHeroesList();
+		} else {
+			return heroesService.getHeroesFilteredByName(name);
+		}
+	}
 
-    @GetMapping("/heroes/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Hero getHeroById(@PathVariable int id) {
+	@GetMapping("/heroes/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Hero getHeroById(@PathVariable int id) {
 
-        return heroesService.getHeroById(id);
-    }
+		return heroesService.getHeroById(id);
+	}
 
-    @PostMapping("/heroes")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Hero createHero(@RequestBody Hero hero) {
+	@PostMapping("/heroes")
+	@ResponseStatus(HttpStatus.CREATED)
+	public Hero createHero(@RequestBody Hero hero) {
 
-        return heroesService.createHero(hero);
-    }
+		return heroesService.createHero(hero);
+	}
 
-    @PutMapping("/heroes")
-    @ResponseStatus(HttpStatus.OK)
-    public Hero updateHero(@RequestBody Hero hero) {
+	@PutMapping("/heroes")
+	@ResponseStatus(HttpStatus.OK)
+	public Hero updateHero(@RequestBody Hero hero) {
 
-        return heroesService.updateHero(hero);
-    }
+		return heroesService.updateHero(hero);
+	}
 
-    @DeleteMapping("/heroes/{id}")
-    @ResponseStatus(HttpStatus.OK)
-    public Hero deleteHero(@PathVariable int id) {
+	@DeleteMapping("/heroes/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public Hero deleteHero(@PathVariable int id) {
 
-        return heroesService.deleteHero(id);
-    }
+		return heroesService.deleteHero(id);
+	}
 
 }

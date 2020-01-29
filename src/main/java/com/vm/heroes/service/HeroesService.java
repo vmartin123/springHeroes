@@ -15,85 +15,75 @@ import java.util.List;
 @Data
 public class HeroesService {
 
-    private List<Hero> heroesList = new ArrayList<>();
+	private List<Hero> heroesList = new ArrayList<>();
 
-    public HeroesService() {
-        buildHeroes();
-    }
+	public HeroesService() {
+		buildHeroes();
+	}
 
-    public Hero getHeroById(int id) {
+	public Hero getHeroById(int id) {
 
-        return getHeroesList().stream().filter(
-                hero -> hero.getId() == id
-        ).findFirst().orElse(null);
-    }
+		return getHeroesList().stream().filter(hero -> hero.getId() == id).findFirst().orElse(null);
+	}
 
-    public List<Hero> getHeroesFilteredByName(String name) {
-        ArrayList<Hero> heroesFilteredList = new ArrayList<>();
+	public List<Hero> getHeroesFilteredByName(String name) {
+		ArrayList<Hero> heroesFilteredList = new ArrayList<>();
 
-        for (Hero heroFiltered : getHeroesList()) {
-            if (heroFiltered.getName().toLowerCase().contains(name.toLowerCase())){
-                heroesFilteredList.add(heroFiltered);
-            }
-        }
-        return heroesFilteredList;
-    }
+		for (Hero heroFiltered : getHeroesList()) {
+			if (heroFiltered.getName().toLowerCase().contains(name.toLowerCase())) {
+				heroesFilteredList.add(heroFiltered);
+			}
+		}
+		return heroesFilteredList;
+	}
 
-    public Hero createHero(Hero hero) {
-    	if (getHeroesList().size() > 0) {
-    		int id = getHeroesList().get(getHeroesList().size()-1).getId() + 1;
-            hero.setId(id);
-            getHeroesList().add(hero);
+	public Hero createHero(Hero hero) {
+		if (getHeroesList().size() > 0) {
+			int id = getHeroesList().get(getHeroesList().size() - 1).getId() + 1;
+			hero.setId(id);
+			getHeroesList().add(hero);
 		} else {
 			hero.setId(1);
-	        getHeroesList().add(hero);
+			getHeroesList().add(hero);
 		}
-        
-        return hero;
-    }
 
-    public Hero updateHero(Hero hero) {
-        int index = -1;
+		return hero;
+	}
 
-        for (Hero heroFilter : getHeroesList()) {
-            if (heroFilter.getId() == hero.getId()) {
-                index = getHeroesList().indexOf(heroFilter);
-                break;
-            }
-        }
+	public Hero updateHero(Hero hero) {
+		int index = -1;
 
-        if (index == -1) {
-            throw new StatusCodeException(HttpStatus.NOT_FOUND, CustomStatusCodes.HERO_NOT_FOUND);
-        }
+		for (Hero heroFilter : getHeroesList()) {
+			if (heroFilter.getId() == hero.getId()) {
+				index = getHeroesList().indexOf(heroFilter);
+				break;
+			}
+		}
 
-        getHeroesList().get(index).setName(hero.getName());
+		if (index == -1) {
+			throw new StatusCodeException(HttpStatus.NOT_FOUND, CustomStatusCodes.HERO_NOT_FOUND);
+		}
 
-        return hero;
-    }
+		getHeroesList().get(index).setName(hero.getName());
 
-    public Hero deleteHero(int id) {
-        Hero hero = getHeroesList().stream().filter(
-                heroToFind -> heroToFind.getId() == id
-        ).findFirst().orElse(null);
+		return hero;
+	}
 
-        if (hero == null) {
-            throw new StatusCodeException(HttpStatus.NOT_FOUND, CustomStatusCodes.HERO_NOT_FOUND);
-        }
+	public Hero deleteHero(int id) {
+		Hero hero = getHeroesList().stream().filter(heroToFind -> heroToFind.getId() == id).findFirst().orElse(null);
 
-        getHeroesList().remove(hero);
+		if (hero == null) {
+			throw new StatusCodeException(HttpStatus.NOT_FOUND, CustomStatusCodes.HERO_NOT_FOUND);
+		}
 
-        return hero;
-    }
+		getHeroesList().remove(hero);
 
-    private void buildHeroes() {
-        heroesList.addAll(Arrays.asList(
-                new Hero(1, "Victor"),
-                new Hero(2, "Dubraska"),
-                new Hero(3, "Luis"),
-                new Hero(4, "Juan"),
-                new Hero(5, "Laura"),
-                new Hero(6, "Simon")
-        ));
-    }
+		return hero;
+	}
+
+	private void buildHeroes() {
+		heroesList.addAll(Arrays.asList(new Hero(1, "Victor"), new Hero(2, "Dubraska"), new Hero(3, "Luis"),
+				new Hero(4, "Juan"), new Hero(5, "Laura"), new Hero(6, "Simon")));
+	}
 
 }
